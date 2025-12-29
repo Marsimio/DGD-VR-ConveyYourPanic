@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 38d7e5ea51af73749858f23d036b9a40
+guid: 2d085f6ffd404d04a9172677b0a86bb6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Floor Texture
-    second: {fileID: 2800000, guid: a40a8aed43afe784da10bc1ebbcac55d, type: 3}
+    second: {fileID: 2800000, guid: 1f5b89790983a1a459447b804f0de836, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

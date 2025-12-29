@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: ecc5bbe519f5ff640ba0dab71f69940b
+guid: 156cf8ef94aeb214fa47d8090a7b1abb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Computer Table Normal
+    second: {fileID: 2800000, guid: d8d4a0a1d6bb03b4bbd3a877fa86b16f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Computer Table Texture
+    second: {fileID: 2800000, guid: 3d8d10ea699661248b567880dd1df4ce, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

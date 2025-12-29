@@ -1,9 +1,29 @@
 fileFormatVersion: 2
-guid: 3d6ad5b7368ad6a488c23a0687d01bd4
+guid: 7407ebfd8b66f8940b4322adcf02a1ff
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button Normal
+    second: {fileID: 2800000, guid: 62a441ee1de346042b593c379fa6492b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Button Texture
+    second: {fileID: 2800000, guid: 40f62a3035c2191429010263cb3e4380, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Workbench Normal
+    second: {fileID: 2800000, guid: 569552c90853e8441a978b736add8d7e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Workbench Texture
+    second: {fileID: 2800000, guid: cea392829e5296448931cd7fcd0ede6c, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

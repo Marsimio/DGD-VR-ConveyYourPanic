@@ -8,7 +8,6 @@ public class CrankRotate : MonoBehaviour
 
     private float _lastAngle;
     private float _accumulated;
-    public int value;
 
     private void Awake()
     {
