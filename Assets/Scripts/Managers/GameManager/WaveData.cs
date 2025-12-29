@@ -4,8 +4,11 @@ using UnityEngine;
 public class WaveData : ScriptableObject
 {
     public string difficulty;
+    public float waveStartDelay;
+    public float itemsSpawnInterval;
 
+    public GameObject[] spawnableItems;
     public int itemsToSpawn;
-    public int conveyorSpeed;
-    
+    public float conveyorSpeed;
+
 }
