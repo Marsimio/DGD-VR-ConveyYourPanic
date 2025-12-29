@@ -1,20 +1,20 @@
 using UnityEngine;
 
-public class StatManager : MonoBehaviour
+namespace Managers
 {
-    public static StatManager Instance { get; private set; }
-
-    void Awake()
+    public class StatManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static StatManager instance { get; private set; }
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (instance && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this;
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
-
-    public int energy;
 }

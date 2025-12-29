@@ -1,4 +1,5 @@
 using System;
+using Managers.GameManager;
 using UnityEngine;
 
 public class CrankRotate : MonoBehaviour
@@ -27,16 +28,17 @@ public class CrankRotate : MonoBehaviour
     {
         float currentAngle = _hinge.angle;
         float delta = Mathf.DeltaAngle(_lastAngle, currentAngle);
+        if (delta < 0f)
+        {
+            _accumulated += -delta;
+        }
 
-        _accumulated += delta;
         _lastAngle = currentAngle;
 
-        if (Mathf.Abs(_accumulated) >= 360f)
+        if (_accumulated >= 360f)
         {
-            int turns = Mathf.FloorToInt(Mathf.Abs(_accumulated) / 360f);
-            StatManager.Instance.energy += turns * 10;
-
-            _accumulated %= 360f;
+            GameManager.instance.energy += 10;
+            _accumulated -= 360f;
         }
     }
 }
