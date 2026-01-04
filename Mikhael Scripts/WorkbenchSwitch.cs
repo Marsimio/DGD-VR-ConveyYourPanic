@@ -11,23 +11,35 @@ public class WorkbenchSwitch : MonoBehaviour
     private bool isOn = false;
 
     private void Start()
-    {
-        // Connect the switch interaction
-        if (switchInteractable != null)
-        {
-            switchInteractable.selectEntered.AddListener(OnSwitchPressed);
-        }
+{
+    // Start OFF (red) and set up listener
+    if (switchInteractable != null)
+        switchInteractable.selectEntered.AddListener(OnSwitchPressed);
+    
+    isOn = false;
+    UpdateVisuals();  // Red + OFF
+}
 
-        // Set initial state
-        UpdateVisuals();
+//Updates the light color and intensity based on switch state
+private void UpdateVisuals()
+{
+    if (indicatorLight != null)
+    {
+        indicatorLight.color = isOn ? Color.green : Color.red;
+        indicatorLight.enabled = true;  // ALWAYS on, just changes color
+        indicatorLight.intensity = isOn ? 2f : 1f;  // Brighter when green
     }
 
-    private void OnSwitchPressed(SelectEnterEventArgs args)
+}
+
+//when switch is pressed
+private void OnSwitchPressed(SelectEnterEventArgs args)
     {
         ToggleSwitch();
     }
 
-    public void ToggleSwitch()
+//Calls functions to toggle switch state, update visuals, and play sound
+public void ToggleSwitch()
     {
         isOn = !isOn;
         UpdateVisuals();
@@ -37,18 +49,8 @@ public class WorkbenchSwitch : MonoBehaviour
         Debug.Log($"Workbench switch toggled: {(isOn ? "ON" : "OFF")}");
     }
 
-    private void UpdateVisuals()
-    {
-        // Update light color
-        if (indicatorLight != null)
-        {
-            indicatorLight.color = isOn ? Color.green : Color.red;
-            indicatorLight.enabled = isOn;
-        }
-
-    }
-
-    private void PlaySound()
+//Plays Sound on machine start
+private void PlaySound()
     {
         if (audioSource != null && toggleSound != null)
         {
