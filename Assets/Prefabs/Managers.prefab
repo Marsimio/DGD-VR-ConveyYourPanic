@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8274109741519852779}
   - component: {fileID: 312331891686229625}
   - component: {fileID: 3571639503100370273}
+  - component: {fileID: 5938709987605530645}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -45,6 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d00b89e41fc4ba4384f791804e61e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: cce8065f7af183d4691829a881bb5dff, type: 2}
+  conveyor: {fileID: 0}
+  itemSpawnPoint: {fileID: 0}
+  energy: 0
+  waveCount: 0
+  strikes: 0
 --- !u!114 &3571639503100370273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,4 +65,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdcd99d83575fd4b9b03f0654f31bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: 0
+--- !u!114 &5938709987605530645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33902055977065411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646ee475c74ab534b81d68a41e48d0c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tools:
+  - toolGrabInteractable: {fileID: 0}
+    homePosition: {fileID: 0}
+  - toolGrabInteractable: {fileID: 0}
+    homePosition: {fileID: 0}
+  - toolGrabInteractable: {fileID: 0}
+    homePosition: {fileID: 0}
+  - toolGrabInteractable: {fileID: 0}
+    homePosition: {fileID: 0}
+  recallButtons:
+  - {fileID: 0}
+  recallSpeed: 5
