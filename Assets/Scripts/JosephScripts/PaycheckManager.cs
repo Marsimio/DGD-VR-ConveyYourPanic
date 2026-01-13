@@ -8,7 +8,7 @@ public class PaycheckManager : MonoBehaviour
 
     [Header("Paycheck")]
     public TextMeshProUGUI paycheckNameText; // Text element on paycheck that shows name
-    public GameObject paycheckObject; // The actual paycheck GameObject (optional)
+    public GameObject paycheckObject; // The actual paycheck GameObject
 
     public void OnSubmitName()
     {

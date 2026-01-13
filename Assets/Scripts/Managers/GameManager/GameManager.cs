@@ -125,6 +125,11 @@ namespace Managers.GameManager
             {
                 StopCoroutine(_waveCoroutine);
                 _waveCoroutine = null;
+
+            }
+            for(int i = 0; i< _spawnedItems.Count; i++)
+            {
+                Debug.Log(_spawnedItems[i]);
             }
             _spawnedItems.Clear();
 
