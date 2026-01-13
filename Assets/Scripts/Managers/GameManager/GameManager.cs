@@ -26,7 +26,7 @@ namespace Managers.GameManager
         private bool _waveComplete; // Wave Completed flag.
         private bool _gameResetting; // Wave resetting flag. needed to prevent items from calling a new wave by accident whilst being destroyed during reset
         private int _itemsOffConveyor;
-        private int _strikes; // Strike Count. Three strikes and you're out.
+        public int strikes; // Strike Count. Three strikes and you're out.
 
         #region Getters/Setters
         public bool waveComplete
@@ -52,7 +52,7 @@ namespace Managers.GameManager
 
                 if (_itemsOffConveyor >= 3)
                 {
-                    _strikes++;
+                    strikes++;
                     StartNextWave();
                 }
             }

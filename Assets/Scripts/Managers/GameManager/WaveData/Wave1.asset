@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: Easy
   waveStartDelay: 5
-  itemsSpawnInterval: 2
+  itemsSpawnInterval: 8
   spawnableItems:
-  - {fileID: 3950352173562746662, guid: f3422f751d31b4241930faf63e720c89, type: 3}
+  - {fileID: 3950352173562746662, guid: 0523ebe63383f364394d21439ae38471, type: 3}
   itemsToSpawn: 5
-  conveyorSpeed: 0.5
+  conveyorSpeed: 0.1
