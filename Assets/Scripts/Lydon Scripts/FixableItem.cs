@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class FixableItem : MonoBehaviour
 {
+    public bool isDeductable = false;
+    public bool isInside = false;
+    public bool wasInside = false;
+    public Coroutine trackerCoroutine;
     public bool isFixed = false;
     public MeshFilter targetMeshFilter;
     public Mesh meshToChange;
@@ -20,7 +24,7 @@ public class FixableItem : MonoBehaviour
     public void AttemptFix(ToolType toolType)
     {
         Debug.Log("Fixing item");
-        if (isFixed) return;
+        if (isFixed) GameManager.instance._totalFixedItems++; return;
 
         if (IsToolAllowed(toolType))
             Fix();
@@ -28,8 +32,6 @@ public class FixableItem : MonoBehaviour
     
     private bool IsToolAllowed(ToolType toolType)
     {
-        if (allowedTool == null) return false;
-
         if (allowedTool == toolType) return true;
 
         return false;

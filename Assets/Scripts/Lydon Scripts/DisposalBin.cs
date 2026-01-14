@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class DisposalBin : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.TryGetComponent<FixableItem>(out FixableItem fixableItem))
         {
+            fixableItem.isDeductable = false;
             if (!fixableItem.isFixed)
             {
-                GameManager.instance.strikes++;
+                GameManager.instance.Strikes++;
             }
             Destroy(other.gameObject);
         }

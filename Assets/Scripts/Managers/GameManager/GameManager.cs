@@ -6,16 +6,23 @@ namespace Managers.GameManager
 {
     public class GameManager : MonoBehaviour
     {
+        private static readonly int Fill = Shader.PropertyToID("Fill");
         public static GameManager instance { get; private set; }
 
         [Header("Game Data")]
         public WaveData[] waves; // Wave count
         public ConveyorMove conveyor;
         public Transform itemSpawnPoint;
-
+        
+        [Header("UI Objects")]
+        public MeshRenderer energyStripRenderer;
+        public GameObject[] strikeLights;
+        private static readonly int FillId = Shader.PropertyToID("_Fill");
+        
+        
         [Header("Energy")]
-        private int _maxEnergy; // Max Energy count
-        public int energy; // Current Energy count. Affected by the crank in CrankRotate
+        public int maxEnergy; // Max Energy count
+        private int _energy; // Current Energy count. Affected by the crank in CrankRotate
 
         [Header("Play Data")]
         private List<GameObject> _spawnedItems = new List<GameObject>(); // Current item list
@@ -26,7 +33,8 @@ namespace Managers.GameManager
         private bool _waveComplete; // Wave Completed flag.
         private bool _gameResetting; // Wave resetting flag. needed to prevent items from calling a new wave by accident whilst being destroyed during reset
         private int _itemsOffConveyor;
-        public int strikes; // Strike Count. Three strikes and you're out.
+        private int _strikes; // Strike Count. Three strikes and you're out.
+        public int _totalFixedItems;
 
         #region Getters/Setters
         public bool waveComplete
@@ -52,9 +60,34 @@ namespace Managers.GameManager
 
                 if (_itemsOffConveyor >= 3)
                 {
-                    strikes++;
+                    Strikes++;
                     StartNextWave();
                 }
+            }
+        }
+
+        public int Energy
+        {
+            get => _energy;
+            set
+            {
+                _energy = Mathf.Clamp(value, 0, maxEnergy);
+
+                float t = Mathf.InverseLerp(0f, maxEnergy, _energy);
+                float shaderValue = Mathf.Lerp(0.2f, 0.5f, 1f - t);
+
+                Debug.Log(shaderValue);
+                energyStripRenderer.material.SetFloat(FillId, shaderValue);
+            }
+        }
+
+        public int Strikes
+        {
+            get => _strikes;
+            set
+            {
+                _strikes = value;
+                strikeLights[_strikes-1].SetActive(true);
             }
         }
         #endregion
@@ -73,6 +106,7 @@ namespace Managers.GameManager
 
         void Start()
         {
+            Energy = 50;
             StartNextWave(); // Start running waves
         }
         #endregion
@@ -114,7 +148,8 @@ namespace Managers.GameManager
 
         void SpawnItems()
         {
-            GameObject spawnedItem = Instantiate(currentWave.spawnableItems[Random.Range(0, currentWave.spawnableItems.Length)], itemSpawnPoint.position, itemSpawnPoint.rotation);
+            Vector3 pos = itemSpawnPoint.position + (itemSpawnPoint.forward * Random.Range(-0.3f, 0.3f));
+            GameObject spawnedItem = Instantiate(currentWave.spawnableItems[Random.Range(0, currentWave.spawnableItems.Length)], pos, Random.rotation);
             _spawnedItems.Add(spawnedItem);
         }
 
@@ -129,7 +164,12 @@ namespace Managers.GameManager
             }
             for(int i = 0; i< _spawnedItems.Count; i++)
             {
-                Debug.Log(_spawnedItems[i]);
+                _spawnedItems[i].GetComponent<FixableItem>().isDeductable = false;
+                Destroy(_spawnedItems[i]);
+            }
+            for (int i = 0; _spawnedItems.Count > i; i++)
+            {
+                Destroy(_spawnedItems[i]);
             }
             _spawnedItems.Clear();
 
