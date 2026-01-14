@@ -17,22 +17,19 @@ public class ToolManager : MonoBehaviour
 
 private void Start()
     {
-        /*// Register button listeners
+        // Register button listeners
         foreach (UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable button in recallButtons)
         {
             if (button != null)
             {
                 button.selectEntered.AddListener(OnRecallPressed);//Listens to when the recall button is pressed
             }
-        }*/
-        // Moved Listeners to interactable functions
+        }
     }
 
 private void OnRecallPressed(SelectEnterEventArgs args)
     {
-        /*Debug.Log("Recall Pressed");
-        RecallAllTools();//Calls the function to recall all tools*/
-        // Moved Listeners to interactable functions
+        RecallAllTools();//Calls the function to recall all tools
     }
 
 //Moves all tools back to their home positions
