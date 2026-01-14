@@ -27,16 +27,16 @@ public class CrankRotate : MonoBehaviour
     {
         float currentAngle = _hinge.angle;
         float delta = Mathf.DeltaAngle(_lastAngle, currentAngle);
-        if (delta < 0f)
+        if (delta > 0f)
         {
-            _accumulated += -delta;
+            _accumulated += delta;
         }
 
         _lastAngle = currentAngle;
 
         if (_accumulated >= 360f)
         {
-            GameManager.instance.energy += 10;
+            GameManager.instance.Energy += 10;
             _accumulated -= 360f;
         }
     }

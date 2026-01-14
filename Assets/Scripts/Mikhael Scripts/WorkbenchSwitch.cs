@@ -37,8 +37,8 @@ public class WorkbenchSwitch : MonoBehaviour
         ToggleSwitch();
     }
 
-    // Calls functions to toggle switch state, update visuals, and play sound
-    public void ToggleSwitch()
+//Calls functions to toggle switch state, update visuals, and play sound
+public void ToggleSwitch()
     {
         isOn = !isOn;
         UpdateVisuals();
@@ -48,8 +48,8 @@ public class WorkbenchSwitch : MonoBehaviour
         Debug.Log($"Workbench switch toggled: {(isOn ? "ON" : "OFF")}");
     }
 
-    // Plays Sound on machine start
-    private void PlaySound()
+//Plays Sound on machine start
+private void PlaySound()
     {
         if (audioSource != null && toggleSound != null)
         {
@@ -59,4 +59,3 @@ public class WorkbenchSwitch : MonoBehaviour
 
     public bool GetState() => isOn;
 }
-
