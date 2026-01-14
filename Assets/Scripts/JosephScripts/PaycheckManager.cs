@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Managers.GameManager;
 
 public class PaycheckManager : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class PaycheckManager : MonoBehaviour
         // Update paycheck with player's name
         if (paycheckNameText != null)
         {
-            paycheckNameText.text = $"Employee: {name}";
+            paycheckNameText.text = $"Employee: {name + GameManager.instance._totalFixedItems * 0.1}";
         }
 
         // Optional: Spawn or activate paycheck object

@@ -86,8 +86,9 @@ namespace Managers.GameManager
             get => _strikes;
             set
             {
-                _strikes = value;
+                _strikes = Mathf.Clamp(value, 1, 3);
                 strikeLights[_strikes-1].SetActive(true);
+                Debug.Log(_strikes);
             }
         }
         #endregion
