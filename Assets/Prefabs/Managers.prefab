@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8274109741519852779}
   - component: {fileID: 312331891686229625}
   - component: {fileID: 3571639503100370273}
-  - component: {fileID: 4500636545257472769}
+  - component: {fileID: 7032228159276281453}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -50,12 +50,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cce8065f7af183d4691829a881bb5dff, type: 2}
   conveyor: {fileID: 0}
   itemSpawnPoint: {fileID: 0}
-  energyStrip: {fileID: 2100000, guid: bac07a8dc5be4b546a94dfc798a56156, type: 2}
+  energyStripRenderer: {fileID: 0}
   strikeLights:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  maxEnergy: 100
   waveCount: 0
+  _totalFixedItems: 0
 --- !u!114 &3571639503100370273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdcd99d83575fd4b9b03f0654f31bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4500636545257472769
+--- !u!114 &7032228159276281453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,5 +92,6 @@ MonoBehaviour:
   - toolGrabInteractable: {fileID: 0}
     homePosition: {fileID: 0}
   recallButtons:
+  - {fileID: 0}
   - {fileID: 0}
   recallSpeed: 5

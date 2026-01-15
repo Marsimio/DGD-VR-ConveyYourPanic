@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Wave1
   m_EditorClassIdentifier: 
   difficulty: Easy
-  waveStartDelay: 5
-  itemsSpawnInterval: 8
+  waveStartDelay: 20
+  itemsSpawnInterval: 12
   spawnableItems:
   - {fileID: 3950352173562746662, guid: 0523ebe63383f364394d21439ae38471, type: 3}
   itemsToSpawn: 4

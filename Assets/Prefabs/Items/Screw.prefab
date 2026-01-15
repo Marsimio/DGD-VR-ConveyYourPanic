@@ -214,7 +214,7 @@ MonoBehaviour:
   m_ParentInteractableObject: {fileID: 0}
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -279,7 +279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f80c3d38a799c4abf8d23ea4927e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDeductable: 0
+  isInside: 0
+  wasInside: 0
+  isFixable: 0
   isFixed: 0
   targetMeshFilter: {fileID: 3507811385586815370}
-  meshToChange: {fileID: 9191439299584683203, guid: 320a035a48b84da4480f31fbcf8fa6e6, type: 3}
+  meshToChange: {fileID: 6416302070336371891, guid: 926c1e432f7e0474292083205208b7b0, type: 3}
   allowedTool: 3

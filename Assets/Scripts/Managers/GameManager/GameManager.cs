@@ -35,6 +35,10 @@ namespace Managers.GameManager
         private int _itemsOffConveyor;
         private int _strikes; // Strike Count. Three strikes and you're out.
         public int _totalFixedItems;
+        
+        [Header("UI Keyboard")]
+        public GameObject keyboard;
+        public GameObject canvas;
 
         #region Getters/Setters
         public bool waveComplete
@@ -89,6 +93,10 @@ namespace Managers.GameManager
                 _strikes = Mathf.Clamp(value, 1, 3);
                 strikeLights[_strikes-1].SetActive(true);
                 Debug.Log(_strikes);
+                if (_strikes == 3)
+                {
+                    EndGame();
+                }
             }
         }
         #endregion
@@ -149,7 +157,7 @@ namespace Managers.GameManager
 
         void SpawnItems()
         {
-            Vector3 pos = itemSpawnPoint.position + (itemSpawnPoint.forward * Random.Range(-0.3f, 0.3f));
+            Vector3 pos = itemSpawnPoint.position + (itemSpawnPoint.forward * Random.Range(-0.15f, 0.15f));
             GameObject spawnedItem = Instantiate(currentWave.spawnableItems[Random.Range(0, currentWave.spawnableItems.Length)], pos, Random.rotation);
             _spawnedItems.Add(spawnedItem);
         }
@@ -179,9 +187,25 @@ namespace Managers.GameManager
             _waveComplete = false;
             _gameResetting = false;
         }
+
+        void EndGame()
+        {
+            ResetWave();
+            canvas.SetActive(true);
+            keyboard.SetActive(true);
+        }
         #endregion
 
         #region Game Utility (Item Removal)
+
+        private IEnumerator RunWave()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(15f);
+                Energy -= 10;
+            }
+        }
 
         public void RemoveSpawnedItem(GameObject item) // To be called BY THE OBJECT WHEN DESTROYED
         {

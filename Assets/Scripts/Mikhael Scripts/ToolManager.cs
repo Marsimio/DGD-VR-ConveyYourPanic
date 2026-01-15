@@ -60,7 +60,7 @@ private System.Collections.IEnumerator MoveToolToHome(UnityEngine.XR.Interaction
             toolTransform.position = Vector3.Lerp(toolTransform.position, homePos.position, t * recallSpeed * Time.deltaTime);//Lerp position
             yield return null;
         }
-
+        Debug.unityLogger.Log(homePos.position);
         toolTransform.position = homePos.position;//Ensure final position
         toolTransform.rotation = homePos.rotation;//Ensure final rotation   
         tool.enabled = wasEnabled;//Re-enable the tool's interactable 

@@ -7,6 +7,7 @@ public class WorkbenchSwitch : MonoBehaviour
     [SerializeField] private Light indicatorLight;
     [SerializeField] private AudioClip toggleSound;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private BoxCollider boxCollider;
 
     private bool isOn = false;
 
@@ -27,7 +28,8 @@ public class WorkbenchSwitch : MonoBehaviour
         {
             indicatorLight.color = isOn ? Color.green : Color.red;
             indicatorLight.enabled = true;  // ALWAYS on, just changes color
-            indicatorLight.intensity = isOn ? 2f : 1f;  // Brighter when green
+            indicatorLight.intensity = isOn ? 1f : 0.5f;  // Brighter when green
+            boxCollider.enabled = isOn;
         }
     }
 

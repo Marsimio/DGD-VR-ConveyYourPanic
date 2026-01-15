@@ -8,11 +8,11 @@ public class FixableItem : MonoBehaviour
     public bool isDeductable = false;
     public bool isInside = false;
     public bool wasInside = false;
+    public bool isFixable = false;
     public Coroutine trackerCoroutine;
     public bool isFixed = false;
     public MeshFilter targetMeshFilter;
     public Mesh meshToChange;
-
     public ToolType allowedTool;
 
     private void Awake()
@@ -24,7 +24,11 @@ public class FixableItem : MonoBehaviour
     public void AttemptFix(ToolType toolType)
     {
         Debug.Log("Fixing item");
-        if (isFixed) GameManager.instance._totalFixedItems++; return;
+        if (isFixed)
+        {
+            GameManager.instance._totalFixedItems++; 
+            return;
+        }
 
         if (IsToolAllowed(toolType))
             Fix();
@@ -32,7 +36,7 @@ public class FixableItem : MonoBehaviour
     
     private bool IsToolAllowed(ToolType toolType)
     {
-        if (allowedTool == toolType) return true;
+        if (allowedTool == toolType && isFixable && GameManager.instance.Energy > 0) return true;
 
         return false;
     }
