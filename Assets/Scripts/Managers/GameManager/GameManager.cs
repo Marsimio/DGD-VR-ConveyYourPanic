@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace Managers.GameManager
@@ -14,6 +15,13 @@ namespace Managers.GameManager
         public ConveyorMove conveyor;
         public Transform itemSpawnPoint;
         public WorkbenchSwitch[] workbenches;
+        public GameObject door;
+        
+        [Header("Game Sounds")]
+        public AudioSource waveSource;
+        public AudioSource spawnSource;
+        public AudioSource buzzerSource;
+        public AudioSource playerSource;
         
         [Header("UI Objects")]
         public MeshRenderer energyStripRenderer;
@@ -100,6 +108,7 @@ namespace Managers.GameManager
 
                 if (_strikes > oldStrikes)
                 {
+                    buzzerSource.Play();
                     for (int i = oldStrikes; i < _strikes; i++)
                         if (i >= 0 && i < strikeLights.Length)
                             strikeLights[i].SetActive(true);
@@ -112,9 +121,8 @@ namespace Managers.GameManager
                 }
 
                 Debug.Log(_strikes);
-
-                // if (_strikes == 3)
-                //     EndGame();
+                
+                if (_strikes == 3) EndGame();
             }
         }
 
@@ -170,6 +178,11 @@ namespace Managers.GameManager
             // 4. Once all items have been spawned mark that all items have been spawned.
 
             yield return new WaitForSeconds(wave.waveStartDelay);
+            for (int i = 0; i < 3; i++)
+            {
+                waveSource.Play();
+                yield return new WaitForSeconds(1f);
+            }
             SetConveyorSpeed(wave.conveyorSpeed);
 
             while (wave.itemsToSpawn > _spawnedItems.Count)
@@ -188,6 +201,7 @@ namespace Managers.GameManager
 
         void SpawnItems()
         {
+            spawnSource.Play();
             Vector3 pos = itemSpawnPoint.position + (itemSpawnPoint.forward * Random.Range(-0.15f, 0.15f));
             GameObject spawnedItem = Instantiate(currentWave.spawnableItems[Random.Range(0, currentWave.spawnableItems.Length)], pos, Random.rotation);
             _spawnedItems.Add(spawnedItem);
@@ -207,10 +221,6 @@ namespace Managers.GameManager
                 _spawnedItems[i].GetComponent<FixableItem>().isDeductable = false;
                 Destroy(_spawnedItems[i]);
             }
-            for (int i = 0; _spawnedItems.Count > i; i++)
-            {
-                Destroy(_spawnedItems[i]);
-            }
             _spawnedItems.Clear();
 
             _itemsOffConveyor = 0;
@@ -222,8 +232,10 @@ namespace Managers.GameManager
         void EndGame()
         {
             ResetWave();
+            playerSource.Stop();
             canvas.SetActive(true);
             keyboard.SetActive(true);
+            door.SetActive(true);
         }
         #endregion
 
@@ -234,7 +246,7 @@ namespace Managers.GameManager
             while (true)
             {
                 int powerDrainRate = 0;
-                yield return new WaitForSeconds(15f);
+                yield return new WaitForSeconds(6f);
 
                 for (int i = 0; i < workbenches.Length; i++)
                 {
