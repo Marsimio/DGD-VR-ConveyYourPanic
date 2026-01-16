@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FastWave
   m_EditorClassIdentifier: 
   waveStartDelay: 10
-  itemsSpawnInterval: 8
+  itemsSpawnInterval: 6
   waveEndDelay: 5
   spawnableItems:
   - {fileID: 3950352173562746662, guid: 8ea07e7ca104641429aba63f4d783a68, type: 3}
   - {fileID: 3950352173562746662, guid: dc2308f90fafbf44db8eb87252213511, type: 3}
-  itemsToSpawn: 2
-  conveyorSpeed: 0.6
+  itemsToSpawn: 3
+  conveyorSpeed: 0.5

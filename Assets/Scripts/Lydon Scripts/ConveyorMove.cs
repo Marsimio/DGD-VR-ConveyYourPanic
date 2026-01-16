@@ -8,7 +8,7 @@ public class ConveyorMove : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Rigidbody rb = other.attachedRigidbody;
-        if (rb != null && rb.CompareTag("Item"))
+        if (rb != null)
         {
             Vector3 movement = -transform.right * speed * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + movement);

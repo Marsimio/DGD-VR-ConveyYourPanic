@@ -7,12 +7,12 @@ public class ConveryBeltTracker : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Rigidbody rb = other.attachedRigidbody;
-        if (rb != null && rb.CompareTag("Item"))
+        if (rb != null && rb.CompareTag("Item")) // Makes sure its an item
         {
             FixableItem item = rb.gameObject.GetComponent<FixableItem>();
             item.isInside = false;
             if (item.trackerCoroutine != null)
-                item.StopCoroutine(item.trackerCoroutine);
+                item.StopCoroutine(item.trackerCoroutine); // stops ongoing coroutines
 
             item.trackerCoroutine = item.StartCoroutine(CheckForExit(rb, item));
         }
@@ -34,7 +34,7 @@ public class ConveryBeltTracker : MonoBehaviour
 
     IEnumerator CheckForExit(Rigidbody rb, FixableItem item)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // only does the check after a second to prevent grab bounce
         if (item.isDeductable && !item.isInside && item.isInside != item.wasInside)
         {
             item.wasInside = item.isInside;
@@ -44,7 +44,7 @@ public class ConveryBeltTracker : MonoBehaviour
     }
     IEnumerator CheckForEntry(Rigidbody rb, FixableItem item)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f); // only does the check after a second to prevent grab bounce
         if (item.isDeductable)
         {
             if (item.isInside && item.isInside != item.wasInside)

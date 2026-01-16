@@ -39,13 +39,15 @@ namespace Managers.GameManager
         private WaveData currentWave; // Current Wave
         private Coroutine _waveCoroutine;
         private Coroutine _drainPower;
-        private float _speedMultiplier = 1;
+        private float _speedMultiplier = 1f;
+        private float _spawnIntervalMultiplier = 1f;
         private bool _allItemsSpawned; // Item Spawned flag
         private bool _waveComplete; // Wave Completed flag.
         private bool _gameResetting; // Wave resetting flag. needed to prevent items from calling a new wave by accident whilst being destroyed during reset
         private int _itemsOffConveyor;
         private int _strikes; // Strike Count. Three strikes and you're out.
         private int _totalFixedItems;
+        private int _totalSpawnedThisWave;
         
         [Header("UI Keyboard")]
         public GameObject keyboard;
@@ -61,7 +63,7 @@ namespace Managers.GameManager
 
                 if (_waveComplete)
                 {
-                    StartNextWave();
+                    StartNextWave(); // Starts the next wave if its complete
                 }
             }
         }
@@ -76,7 +78,7 @@ namespace Managers.GameManager
                 if (_itemsOffConveyor >= 3)
                 {
                     strikes++;
-                    StartNextWave();
+                    if (strikes < 3) StartNextWave(); // Starts a new wave only when strikes arent 3 to prevent a wave from starting after game end
                 }
             }
         }
@@ -89,7 +91,7 @@ namespace Managers.GameManager
                 _energy = Mathf.Clamp(value, 0, maxEnergy);
 
                 float t = Mathf.InverseLerp(0f, maxEnergy, _energy);
-                float shaderValue = Mathf.Lerp(0.2f, 0.5f, 1f - t);
+                float shaderValue = Mathf.Lerp(0.2f, 0.5f, 1f - t); // Adjusts the energy compared to energy maximum to fit the shader properrties
 
                 Debug.Log(shaderValue);
                 energyStripRenderer.material.SetFloat(FillId, shaderValue);
@@ -102,12 +104,12 @@ namespace Managers.GameManager
             set
             {
                 int newStrikes = Mathf.Clamp(value, 0, 3);
-                if (newStrikes == _strikes) return;
+                if (newStrikes == _strikes) return; // prevents redundancy incase strikes go down while the player is still at 0
 
                 int oldStrikes = _strikes;
                 _strikes = newStrikes;
-
-                if (_strikes > oldStrikes)
+                
+                if (_strikes > oldStrikes) // if statement to see if the player now has more strikes or less
                 {
                     buzzerSource.Play();
                     for (int i = oldStrikes; i < _strikes; i++)
@@ -123,7 +125,7 @@ namespace Managers.GameManager
 
                 Debug.Log(_strikes);
                 
-                if (_strikes == 3) EndGame();
+                if (_strikes == 3) EndGame(); // ends the game on 3 strikes
             }
         }
 
@@ -133,10 +135,11 @@ namespace Managers.GameManager
             set
             {
                 _totalFixedItems = value;
-                if (_totalFixedItems > 0 && _totalFixedItems % 5 == 0)
+                if (_totalFixedItems > 0 && _totalFixedItems % 5 == 0) // increases speed and spawn rates by 10% every 5 items completed
                 {
                     strikes--;
-                    _speedMultiplier += 0.05f;
+                    _speedMultiplier += 0.1f;
+                    _spawnIntervalMultiplier -= 0.1f;
                 }
             }
         }
@@ -187,10 +190,12 @@ namespace Managers.GameManager
             }
             SetConveyorSpeed(wave.conveyorSpeed * _speedMultiplier);
 
-            while (wave.itemsToSpawn > _spawnedItems.Count)
+            while (_totalSpawnedThisWave < wave.itemsToSpawn)
             {
                 SpawnItems();
-                yield return new WaitForSeconds(wave.itemsSpawnInterval);
+                _totalSpawnedThisWave++;
+                float interval = Mathf.Max(0.05f, wave.itemsSpawnInterval * _spawnIntervalMultiplier);
+                yield return new WaitForSeconds(interval);
             }
 
             _allItemsSpawned = true;
@@ -224,7 +229,7 @@ namespace Managers.GameManager
                 Destroy(_spawnedItems[i]);
             }
             _spawnedItems.Clear();
-
+            _totalSpawnedThisWave = 0;
             _itemsOffConveyor = 0;
             _allItemsSpawned = false;
             _waveComplete = false;
@@ -252,7 +257,7 @@ namespace Managers.GameManager
 
                 for (int i = 0; i < workbenches.Length; i++)
                 {
-                    if (workbenches[i].isOn) powerDrainRate++;
+                    if (workbenches[i].isOn) powerDrainRate++; // the more workbenches turned on the more power is used
                 }
                 energy -= 5 + (5 * powerDrainRate);
             }

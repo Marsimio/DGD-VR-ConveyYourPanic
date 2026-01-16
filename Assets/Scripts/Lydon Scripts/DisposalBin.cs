@@ -11,11 +11,11 @@ public class DisposalBin : MonoBehaviour
             fixableItem.isDeductable = false;
             if (!fixableItem.isFixed)
             {
-                GameManager.instance.strikes++;
+                GameManager.instance.strikes++; // on not fixed item increase strike count by one
             }
             else
             {
-                GameManager.instance.totalFixedItems++;
+                GameManager.instance.totalFixedItems++; // on a fixed item increase the total by one
             }
             Destroy(other.gameObject);
         }

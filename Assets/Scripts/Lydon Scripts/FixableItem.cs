@@ -30,7 +30,7 @@ public class FixableItem : MonoBehaviour
     
     private bool IsToolAllowed(ToolType toolType)
     {
-        if (allowedTool == toolType && isFixable && GameManager.instance.energy > 0 && !isFixed) return true;
+        if (allowedTool == toolType && isFixable && GameManager.instance.energy > 0 && !isFixed) return true; // Verifies that the item is being hit with the correct tool, is in a fixing zone, the player has enough energy and isn't fixed yet
 
         return false;
     }

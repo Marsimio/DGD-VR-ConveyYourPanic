@@ -14,6 +14,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private List<ToolReference> tools = new List<ToolReference>();
     [SerializeField] private List<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable> recallButtons = new List<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>(); // Buttons to trigger recall
     [SerializeField] private float recallSpeed = 5f; // Speed of recall movement
+    private bool _isRecalling = false;
 
 private void Start()
     {
@@ -29,12 +30,16 @@ private void Start()
 
 private void OnRecallPressed(SelectEnterEventArgs args)
     {
-        RecallAllTools();//Calls the function to recall all tools
+        if (!_isRecalling)
+        {
+            RecallAllTools();//Calls the function to recall all tools
+        }
     }
 
 //Moves all tools back to their home positions
 public void RecallAllTools()
     {
+        _isRecalling = true;
         foreach (ToolReference tool in tools)//Goes through each tool in the list
         {
             if (tool.toolGrabInteractable != null && tool.homePosition != null)
@@ -64,5 +69,6 @@ private System.Collections.IEnumerator MoveToolToHome(UnityEngine.XR.Interaction
         toolTransform.position = homePos.position;//Ensure final position
         toolTransform.rotation = homePos.rotation;//Ensure final rotation   
         tool.enabled = wasEnabled;//Re-enable the tool's interactable 
+        _isRecalling = false;
     }
 }
