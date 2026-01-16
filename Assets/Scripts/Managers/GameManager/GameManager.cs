@@ -13,6 +13,7 @@ namespace Managers.GameManager
         public WaveData[] waves; // Wave count
         public ConveyorMove conveyor;
         public Transform itemSpawnPoint;
+        public WorkbenchSwitch[] workbenches;
         
         [Header("UI Objects")]
         public MeshRenderer energyStripRenderer;
@@ -35,7 +36,7 @@ namespace Managers.GameManager
         private bool _gameResetting; // Wave resetting flag. needed to prevent items from calling a new wave by accident whilst being destroyed during reset
         private int _itemsOffConveyor;
         private int _strikes; // Strike Count. Three strikes and you're out.
-        public int _totalFixedItems;
+        private int _totalFixedItems;
         
         [Header("UI Keyboard")]
         public GameObject keyboard;
@@ -65,13 +66,13 @@ namespace Managers.GameManager
 
                 if (_itemsOffConveyor >= 3)
                 {
-                    Strikes++;
+                    strikes++;
                     StartNextWave();
                 }
             }
         }
 
-        public int Energy
+        public int energy
         {
             get => _energy;
             set
@@ -86,20 +87,50 @@ namespace Managers.GameManager
             }
         }
 
-        public int Strikes
+        public int strikes
         {
             get => _strikes;
             set
             {
-                _strikes = Mathf.Clamp(value, 1, 3);
-                strikeLights[_strikes-1].SetActive(true);
-                Debug.Log(_strikes);
-                if (_strikes == 3)
+                int newStrikes = Mathf.Clamp(value, 0, 3);
+                if (newStrikes == _strikes) return;
+
+                int oldStrikes = _strikes;
+                _strikes = newStrikes;
+
+                if (_strikes > oldStrikes)
                 {
-                    EndGame();
+                    for (int i = oldStrikes; i < _strikes; i++)
+                        if (i >= 0 && i < strikeLights.Length)
+                            strikeLights[i].SetActive(true);
+                }
+                else
+                {
+                    for (int i = _strikes; i < oldStrikes; i++)
+                        if (i >= 0 && i < strikeLights.Length)
+                            strikeLights[i].SetActive(false);
+                }
+
+                Debug.Log(_strikes);
+
+                // if (_strikes == 3)
+                //     EndGame();
+            }
+        }
+
+        public int totalFixedItems
+        {
+            get => _totalFixedItems;
+            set
+            {
+                _totalFixedItems = value;
+                if (_totalFixedItems > 0 && _totalFixedItems % 5 == 0)
+                {
+                    strikes--;
                 }
             }
         }
+
         #endregion
 
         #region Game Start
@@ -116,7 +147,7 @@ namespace Managers.GameManager
 
         void Start()
         {
-            Energy = 50;
+            energy = 50;
             _drainPower = StartCoroutine(DrainPower());
             StartNextWave(); // Start running waves
         }
@@ -148,8 +179,6 @@ namespace Managers.GameManager
             }
 
             _allItemsSpawned = true;
-
-            yield break;
         }
 
         void SetConveyorSpeed(float waveConveyorSpeed)
@@ -204,8 +233,14 @@ namespace Managers.GameManager
         {
             while (true)
             {
+                int powerDrainRate = 0;
                 yield return new WaitForSeconds(15f);
-                Energy -= 10;
+
+                for (int i = 0; i < workbenches.Length; i++)
+                {
+                    if (workbenches[i].isOn) powerDrainRate++;
+                }
+                energy -= 5 + (5 * powerDrainRate);
             }
         }
 

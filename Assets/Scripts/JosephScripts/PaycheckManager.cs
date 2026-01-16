@@ -30,7 +30,7 @@ public class PaycheckManager : MonoBehaviour
         // Update paycheck with player's name
         if (paycheckNameText != null)
         {
-            decimal amount = GameManager.instance._totalFixedItems * 0.10m;
+            decimal amount = GameManager.instance.totalFixedItems * 0.10m;
             paycheckNameText.text =
                 $"Employee: {name}\n" +
                 $"Pay: ${amount:0.00}";

@@ -24,19 +24,13 @@ public class FixableItem : MonoBehaviour
     public void AttemptFix(ToolType toolType)
     {
         Debug.Log("Fixing item");
-        if (isFixed)
-        {
-            GameManager.instance._totalFixedItems++; 
-            return;
-        }
-
         if (IsToolAllowed(toolType))
             Fix();
     }
     
     private bool IsToolAllowed(ToolType toolType)
     {
-        if (allowedTool == toolType && isFixable && GameManager.instance.Energy > 0) return true;
+        if (allowedTool == toolType && isFixable && GameManager.instance.energy > 0 && !isFixed) return true;
 
         return false;
     }
@@ -44,7 +38,7 @@ public class FixableItem : MonoBehaviour
     public void Fix()
     {
         if (meshToChange == null || targetMeshFilter == null) return;
-
+        
         isFixed = true;
         targetMeshFilter.sharedMesh = meshToChange;
     }

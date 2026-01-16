@@ -36,7 +36,7 @@ public class CrankRotate : MonoBehaviour
 
         if (_accumulated >= 360f)
         {
-            GameManager.instance.Energy += 10;
+            GameManager.instance.energy += 10;
             _accumulated -= 360f;
         }
     }

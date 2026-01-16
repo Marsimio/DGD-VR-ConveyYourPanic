@@ -9,7 +9,7 @@ public class WorkbenchSwitch : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private BoxCollider boxCollider;
 
-    private bool isOn = false;
+    public bool isOn = false;
 
     private void Start()
     {

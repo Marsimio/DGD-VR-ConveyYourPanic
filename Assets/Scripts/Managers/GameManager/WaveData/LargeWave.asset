@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 339f842ab30691c4babfffe2bffd69d0, type: 3}
-  m_Name: Wave1
+  m_Name: LargeWave
   m_EditorClassIdentifier: 
-  difficulty: Easy
-  waveStartDelay: 20
-  itemsSpawnInterval: 12
+  waveStartDelay: 5
+  itemsSpawnInterval: 1
+  waveEndDelay: 20
   spawnableItems:
   - {fileID: 3950352173562746662, guid: 0523ebe63383f364394d21439ae38471, type: 3}
-  itemsToSpawn: 4
-  conveyorSpeed: 0.2
+  - {fileID: 3950352173562746662, guid: 975b492fd53dfcc489134a56d0fd1c1d, type: 3}
+  - {fileID: 3950352173562746662, guid: 8ea07e7ca104641429aba63f4d783a68, type: 3}
+  - {fileID: 3950352173562746662, guid: dc2308f90fafbf44db8eb87252213511, type: 3}
+  itemsToSpawn: 6
+  conveyorSpeed: 0.05
