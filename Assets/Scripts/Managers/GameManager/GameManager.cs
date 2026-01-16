@@ -29,6 +29,7 @@ namespace Managers.GameManager
         public int waveCount; // Current wave count
         private WaveData currentWave; // Current Wave
         private Coroutine _waveCoroutine;
+        private Coroutine _drainPower;
         private bool _allItemsSpawned; // Item Spawned flag
         private bool _waveComplete; // Wave Completed flag.
         private bool _gameResetting; // Wave resetting flag. needed to prevent items from calling a new wave by accident whilst being destroyed during reset
@@ -116,6 +117,7 @@ namespace Managers.GameManager
         void Start()
         {
             Energy = 50;
+            _drainPower = StartCoroutine(DrainPower());
             StartNextWave(); // Start running waves
         }
         #endregion
@@ -198,7 +200,7 @@ namespace Managers.GameManager
 
         #region Game Utility (Item Removal)
 
-        private IEnumerator RunWave()
+        private IEnumerator DrainPower()
         {
             while (true)
             {

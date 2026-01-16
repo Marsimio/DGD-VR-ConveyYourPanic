@@ -4103,6 +4103,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 910564134510546521, guid: f62a35a61831e904d9626aee78cf8176, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 910564134510546521, guid: f62a35a61831e904d9626aee78cf8176, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0145
+      objectReference: {fileID: 0}
     - target: {fileID: 2708560443954853106, guid: f62a35a61831e904d9626aee78cf8176, type: 3}
       propertyPath: m_Height
       value: 2.5
@@ -4114,6 +4122,10 @@ PrefabInstance:
     - target: {fileID: 4394886356049468801, guid: f62a35a61831e904d9626aee78cf8176, type: 3}
       propertyPath: m_Name
       value: VR Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307941354196947611, guid: f62a35a61831e904d9626aee78cf8176, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0173
       objectReference: {fileID: 0}
     - target: {fileID: 6494609568985207155, guid: f62a35a61831e904d9626aee78cf8176, type: 3}
       propertyPath: m_LocalPosition.x
