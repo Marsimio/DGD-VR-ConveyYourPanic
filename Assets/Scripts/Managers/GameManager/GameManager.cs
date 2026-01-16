@@ -39,6 +39,7 @@ namespace Managers.GameManager
         private WaveData currentWave; // Current Wave
         private Coroutine _waveCoroutine;
         private Coroutine _drainPower;
+        private float _speedMultiplier = 1;
         private bool _allItemsSpawned; // Item Spawned flag
         private bool _waveComplete; // Wave Completed flag.
         private bool _gameResetting; // Wave resetting flag. needed to prevent items from calling a new wave by accident whilst being destroyed during reset
@@ -135,6 +136,7 @@ namespace Managers.GameManager
                 if (_totalFixedItems > 0 && _totalFixedItems % 5 == 0)
                 {
                     strikes--;
+                    _speedMultiplier += 0.05f;
                 }
             }
         }
@@ -183,7 +185,7 @@ namespace Managers.GameManager
                 waveSource.Play();
                 yield return new WaitForSeconds(1f);
             }
-            SetConveyorSpeed(wave.conveyorSpeed);
+            SetConveyorSpeed(wave.conveyorSpeed * _speedMultiplier);
 
             while (wave.itemsToSpawn > _spawnedItems.Count)
             {
@@ -246,7 +248,7 @@ namespace Managers.GameManager
             while (true)
             {
                 int powerDrainRate = 0;
-                yield return new WaitForSeconds(6f);
+                yield return new WaitForSeconds(5f);
 
                 for (int i = 0; i < workbenches.Length; i++)
                 {
